@@ -1,9 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:bloc_practice_course/bloc_example1/actions.dart';
 import 'package:bloc_practice_course/bloc_example1/extensions_and_enums.dart';
-import 'package:bloc_practice_course/bloc_example1/functions.dart';
 import 'package:flutter/material.dart';
-import 'dart:developer' as marach show log;
+
 
 class PersonData{
   final String name; final int age;
@@ -21,11 +20,18 @@ class FetchedResults{
 
   @override 
   toString() => "Fetched Results (isRetrived: $isRetrievedFromCache , persons: $persons)";
+
+  @override
+  bool operator ==(covariant FetchedResults other) =>
+  persons.isEqualIgnoringOrder(other.persons) && isRetrievedFromCache == other.isRetrievedFromCache;
+  
+  @override
+  int get hashCode => Object.hash(persons, isRetrievedFromCache);  
 }
 
 
 class PersonBloc extends Bloc<LoadingAction, FetchedResults?>{
-  final Map<PersonsUrl, Iterable<PersonData>> _cache = {};
+  final Map<String, Iterable<PersonData>> _cache = {};
   PersonBloc(): super(null){
     on<LoadingPersonsAction>((event, emit) async{
       final url = event.url;
@@ -37,7 +43,8 @@ class PersonBloc extends Bloc<LoadingAction, FetchedResults?>{
         emit(result);
       } else{ 
         print('block 2 was executed');
-        final persons = await getPersonsData(url.urlString);
+        final loader = event.loader;
+        final persons = await loader(url);
         _cache[url] = persons;
         final result = FetchedResults(isRetrievedFromCache: false, persons: persons);
         emit(result);

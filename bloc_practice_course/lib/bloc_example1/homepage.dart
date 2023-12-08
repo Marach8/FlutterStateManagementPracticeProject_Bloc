@@ -1,6 +1,7 @@
 import 'package:bloc_practice_course/bloc_example1/actions.dart';
 import 'package:bloc_practice_course/bloc_example1/customclasses.dart';
 import 'package:bloc_practice_course/bloc_example1/extensions_and_enums.dart';
+import 'package:bloc_practice_course/bloc_example1/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,12 +18,12 @@ class BlocExample1 extends StatelessWidget {
             children: [
               TextButton(
                 onPressed: () => context.read<PersonBloc>()
-                .add(const LoadingPersonsAction(url: PersonsUrl.persons1)),
+                .add(const LoadingPersonsAction(url: person1Url, loader: getPersonsData)),
                 child: const Text('Load Json1')
               ),
               TextButton(
                 onPressed: () => context.read<PersonBloc>()
-                .add(const LoadingPersonsAction(url: PersonsUrl.persons2)),
+                .add(const LoadingPersonsAction(url: person2Url, loader: getPersonsData)),
                 child: const Text('Load Json2')
               ),
             ]
