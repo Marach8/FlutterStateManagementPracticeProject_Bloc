@@ -27,22 +27,22 @@ class FetchedResults{
 class PersonBloc extends Bloc<LoadingAction, FetchedResults?>{
   final Map<PersonsUrl, Iterable<PersonData>> _cache = {};
   PersonBloc(): super(null){
-    on<LoadingPersonsAction>(event, emit) async{
+    on<LoadingPersonsAction>((event, emit) async{
       final url = event.url;
-      marach.log('This is the url: $url');
+      print('This is the url: $url');
       if (_cache.containsKey(url)){
-        marach.log('block 1 was executed');
+        print('block 1 was executed');
         final cachedPerson = _cache[url]!;
         final result = FetchedResults(isRetrievedFromCache: true, persons: cachedPerson);
         emit(result);
       } else{ 
-        marach.log('block 2 was executed');
+        print('block 2 was executed');
         final persons = await getPersonsData(url.urlString);
         _cache[url] = persons;
         final result = FetchedResults(isRetrievedFromCache: false, persons: persons);
         emit(result);
       }
-    }
+    });
   }
 }
 

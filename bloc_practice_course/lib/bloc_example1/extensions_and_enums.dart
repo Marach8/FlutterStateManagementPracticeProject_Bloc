@@ -5,9 +5,9 @@ extension MapUrl on PersonsUrl{
   String get urlString {
     switch(this){
       case PersonsUrl.persons1:
-        return 'http://192.168.0.167:5500/bloc_practice_course/api/persons1.json';
+        return 'http://192.168.3.178:5500/bloc_practice_course/api/persons1.json';
       case PersonsUrl.persons2:
-        return 'http://192.168.0.167:5500/bloc_practice_course/api/persons2.json';
+        return 'http://192.168.3.178:5500/bloc_practice_course/api/persons2.json';
     }
   }
 }
