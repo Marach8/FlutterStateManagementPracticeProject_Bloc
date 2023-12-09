@@ -29,3 +29,67 @@
 //   });
 // }
 
+
+import 'package:bloc_practice_course/bloc_example1/actions.dart';
+import 'package:bloc_practice_course/bloc_example1/customclasses.dart';
+import 'package:bloc_test/bloc_test.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+final mockedPerson1 = [
+  PersonData(name: 'Emmanuel', age: 20),
+  PersonData(name: 'Daniel', age: 29)
+];
+
+final mockedPerson2 = [
+  PersonData(name: 'Emmanuel', age: 20),
+  PersonData(name: 'Daniel', age: 29)
+];
+
+Future<Iterable<PersonData>> getMockedPerson1(String _) => 
+  Future.value(mockedPerson1);
+
+Future<Iterable<PersonData>> getMockedPerson2(String _) => 
+  Future.value(mockedPerson2);
+
+
+void main(){
+  group('Testing the bloc', (){
+    late PersonBloc bloc;
+    
+    setUp(() {
+      bloc = PersonBloc();
+    });
+
+    blocTest<PersonBloc, FetchedResults?>(
+      'Test initial state',
+      build: () => bloc, 
+      verify: (bloc) =>  expect(bloc.state, null)
+    );
+
+    blocTest(
+      'Mock retrieving persons from first iterable',
+      build: () => bloc,
+      act: (bloc) {
+        bloc.add(const LoadingPersonsAction(url: 'dummy_url1', loader: getMockedPerson1));
+        bloc.add(const LoadingPersonsAction(url: 'dummy_url1', loader: getMockedPerson1));
+      },
+      expect: () => [
+        FetchedResults(persons: mockedPerson1, isRetrievedFromCache: false),
+        FetchedResults(persons: mockedPerson1, isRetrievedFromCache: true)
+      ]
+    );
+
+    blocTest(
+      'Mock retrieving persons from second iterable',
+      build: () => bloc,
+      act: (bloc) {
+        bloc.add(const LoadingPersonsAction(url: 'dummy_url2', loader: getMockedPerson2));
+        bloc.add(const LoadingPersonsAction(url: 'dummy_url2', loader: getMockedPerson2));
+      },
+      expect: () => [
+        FetchedResults(persons: mockedPerson2, isRetrievedFromCache: false),
+        FetchedResults(persons: mockedPerson2, isRetrievedFromCache: true)
+      ]
+    );
+  });
+}
