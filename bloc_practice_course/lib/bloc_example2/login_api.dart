@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 @immutable 
 abstract class LoginApiProtocol{
   const LoginApiProtocol();
-
+  
   Future<LoginHandle?> login({required String email, required String password});
 }
 

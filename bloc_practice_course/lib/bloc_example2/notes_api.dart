@@ -14,3 +14,5 @@ class NotesApi implements NotesApiProtocol{
     => Future.delayed(const Duration(seconds: 2), 
     () => handle == const LoginHandle.marach()? mockNotes: null);
 }
+
+final mockNotes = Iterable.generate(3, (a) => Note(title: 'Note ${a + 1}'));

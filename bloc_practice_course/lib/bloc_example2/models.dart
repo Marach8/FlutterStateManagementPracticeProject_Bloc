@@ -2,8 +2,7 @@
 
 @immutable
 class LoginHandle{
-  final String token;
-  const  LoginHandle({required this.token});
+  final String token; const  LoginHandle({required this.token});
 
   const LoginHandle.marach(): token = 'Nnanna Marach';
 
@@ -22,12 +21,9 @@ class LoginHandle{
 
 
  @immutable 
- class Note {
-  final String title;
-  const Note({required this.title});
+ class Note{
+  final String title; const Note({required this.title});
+
   @override 
   String toString() => 'Note (title: $title)';
  }
-
-
-final mockNotes = Iterable.generate(3, (a) => Note(title: 'Note ${a + 1}'));
