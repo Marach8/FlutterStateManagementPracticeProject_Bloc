@@ -1,13 +1,13 @@
 import 'package:bloc_practice_course/bloc_example1/customclasses.dart';
 import 'package:bloc_practice_course/bloc_example1/homepage.dart';
-import 'package:bloc_practice_course/bloc_example2/actions.dart';
+import 'package:bloc_practice_course/bloc_example2/others/actions.dart';
 import 'package:bloc_practice_course/bloc_example2/bloc/app_bloc.dart';
 import 'package:bloc_practice_course/bloc_example2/bloc/app_state.dart';
-import 'package:bloc_practice_course/bloc_example2/extensions.dart';
+import 'package:bloc_practice_course/bloc_example2/others/extensions.dart';
 import 'package:bloc_practice_course/bloc_example2/custom_widgets/generic_dialog.dart';
-import 'package:bloc_practice_course/bloc_example2/loading_screen.dart';
+import 'package:bloc_practice_course/bloc_example2/loadscreen/loading_screen.dart';
 import 'package:bloc_practice_course/bloc_example2/api/login_api.dart';
-import 'package:bloc_practice_course/bloc_example2/models.dart';
+import 'package:bloc_practice_course/bloc_example2/others/models.dart';
 import 'package:bloc_practice_course/bloc_example2/api/notes_api.dart';
 import 'package:bloc_practice_course/bloc_example2/views/login_view.dart';
 import 'package:bloc_practice_course/cubit_example/cubit_example.dart';

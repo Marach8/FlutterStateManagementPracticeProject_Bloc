@@ -1,4 +1,4 @@
-import 'package:bloc_practice_course/bloc_example2/models.dart';
+import 'package:bloc_practice_course/bloc_example2/others/models.dart';
 import 'package:flutter/material.dart';
 
 @immutable 

@@ -1,13 +1,13 @@
 import 'package:bloc/bloc.dart';
-import 'package:bloc_practice_course/bloc_example2/actions.dart';
-import 'package:bloc_practice_course/bloc_example2/models.dart';
+import 'package:bloc_practice_course/bloc_example2/others/actions.dart';
+import 'package:bloc_practice_course/bloc_example2/others/models.dart';
 import 'package:bloc_practice_course/bloc_example2/api/notes_api.dart';
 import 'package:bloc_practice_course/bloc_example2/bloc/app_state.dart';
 import 'package:bloc_practice_course/bloc_example2/api/login_api.dart';
 
 class AppBloc extends Bloc<AppAction, AppState> {
-  final LoginApi loginApi;
-  final NotesApi notesApi;
+  final LoginApiProtocol loginApi;
+  final NotesApiProtocol notesApi;
 
   AppBloc({required this.loginApi, required this.notesApi}): super(const AppState.empty()){
     on<LoginAction>((event, emit) async{
