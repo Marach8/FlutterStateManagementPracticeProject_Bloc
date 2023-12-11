@@ -20,6 +20,6 @@ class PasswordField extends StatelessWidget{
   Widget build(BuildContext context) => TextField(
     controller: passwordController, autocorrect: true, obscureText: true,
     decoration: const InputDecoration(hintText: 'Enter your password here.'),
-    obscuringCharacter: '🙄'
+    obscuringCharacter: '*'
   );
 }
