@@ -41,7 +41,8 @@ class BlocExample2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => AppBloc(
-        loginApi: LoginApi(), notesApi: NotesApi()
+        loginApi: LoginApi(), notesApi: NotesApi(),
+        acceptableLoginHandle: const LoginHandle.marach()
       ),
       child: Scaffold(
         appBar: AppBar(title: const Text('Bloc2 Example'), centerTitle: true),

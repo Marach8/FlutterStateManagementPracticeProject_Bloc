@@ -41,11 +41,13 @@ class TestLoginApi implements LoginApiProtocol{
 }
 
 
+const acceptedHandle = LoginHandle(token: 'Emma');
 void main(){
   blocTest<AppBloc, AppState>(
     'Initial state of the bloc should be AppState.empty()',
     build: () => AppBloc(
-      loginApi: const TestLoginApi.empty(), notesApi: const TestNotesApi.empty()
+      loginApi: const TestLoginApi.empty(), notesApi: const TestNotesApi.empty(),
+      acceptableLoginHandle: acceptedHandle
     ),
     verify: (appState) => expect(appState.state, const AppState.empty())
   );
@@ -54,14 +56,54 @@ void main(){
     'Can we log in with correct credentials?',
     build: () => AppBloc(
       loginApi: const TestLoginApi(
-        testEmail: 'david@gmail.com', testPassword: 'David', testHandle: LoginHandle(token: 'Emma')
+        testEmail: 'david@gmail.com', testPassword: 'David', testHandle: acceptedHandle
       ), 
-      notesApi: const TestNotesApi.empty()
+      notesApi: const TestNotesApi.empty(),
+      acceptableLoginHandle: acceptedHandle
     ),
     act: (appBloc) => appBloc.add(const LoginAction(email: 'david@gmail.com', password: 'David')),
     expect: () => [
       const AppState(isLoading: true, loginHandle: null, loginError: null, notes: null),
-      const AppState(isLoading: false, loginHandle: LoginHandle(token: 'Emmaa'), notes: null, loginError: null)
+      const AppState(isLoading: false, loginHandle: acceptedHandle, notes: null, loginError: null)
+    ]
+  );
+
+   blocTest<AppBloc, AppState>(
+    'We must not be able to log in with invalid credentials',
+    build: () => AppBloc(
+      loginApi: const TestLoginApi(
+        testEmail: 'david@gmail.com', testPassword: 'David', testHandle: acceptedHandle
+      ), 
+      notesApi: const TestNotesApi.empty(),
+      acceptableLoginHandle: acceptedHandle
+    ),
+    act: (appBloc) => appBloc.add(const LoginAction(email: 'nnanna@gmail.com', password: 'Nnanna')),
+    expect: () => [
+      const AppState(isLoading: true, loginHandle: null, loginError: null, notes: null),
+      const AppState(isLoading: false, loginHandle: null, notes: null, loginError: LoginErrors.invalidHandle)
+    ]
+  );
+
+  blocTest<AppBloc, AppState>(
+    'Load Some notes with a valid Login Handle',
+    build: () => AppBloc(
+      loginApi: const TestLoginApi(
+        testEmail: 'david@gmail.com', testPassword: 'David', testHandle: acceptedHandle
+      ), 
+      notesApi: const TestNotesApi(
+        acceptedLoginHandle: acceptedHandle, notesReturnedForAcceptedLoginHandle: mockNotes
+      ),
+      acceptableLoginHandle: acceptedHandle
+    ),
+    act: (appBloc) {
+      appBloc.add(const LoginAction(email: 'david@gmail.com', password: 'David'));
+      appBloc.add(const LoadNotesAction());
+    },
+    expect: () => [
+      const AppState(isLoading: true, loginHandle: null, loginError: null, notes: null),
+      const AppState(isLoading: false, loginHandle: acceptedHandle, notes: null, loginError: null),
+      const AppState(isLoading: true, loginHandle: acceptedHandle, loginError: null, notes: null),
+      const AppState(isLoading: false, loginHandle: acceptedHandle, loginError: null, notes: mockNotes)
     ]
   );
 }
