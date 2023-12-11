@@ -35,14 +35,11 @@ class PersonBloc extends Bloc<LoadingAction, FetchedResults?>{
   PersonBloc(): super(null){
     on<LoadingPersonsAction>((event, emit) async{
       final url = event.url;
-      print('This is the url: $url');
       if (_cache.containsKey(url)){
-        print('block 1 was executed');
         final cachedPerson = _cache[url]!;
         final result = FetchedResults(isRetrievedFromCache: true, persons: cachedPerson);
         emit(result);
       } else{ 
-        print('block 2 was executed');
         final loader = event.loader;
         final persons = await loader(url);
         _cache[url] = persons;

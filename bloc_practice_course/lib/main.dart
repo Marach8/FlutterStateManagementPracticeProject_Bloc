@@ -1,14 +1,14 @@
 import 'package:bloc_practice_course/bloc_example1/customclasses.dart';
 import 'package:bloc_practice_course/bloc_example1/homepage.dart';
 import 'package:bloc_practice_course/bloc_example2/actions.dart';
-import 'package:bloc_practice_course/bloc_example2/app_bloc.dart';
-import 'package:bloc_practice_course/bloc_example2/app_state.dart';
+import 'package:bloc_practice_course/bloc_example2/bloc/app_bloc.dart';
+import 'package:bloc_practice_course/bloc_example2/bloc/app_state.dart';
 import 'package:bloc_practice_course/bloc_example2/extensions.dart';
-import 'package:bloc_practice_course/bloc_example2/generic_dialog.dart';
+import 'package:bloc_practice_course/bloc_example2/custom_widgets/generic_dialog.dart';
 import 'package:bloc_practice_course/bloc_example2/loading_screen.dart';
-import 'package:bloc_practice_course/bloc_example2/login_api.dart';
+import 'package:bloc_practice_course/bloc_example2/api/login_api.dart';
 import 'package:bloc_practice_course/bloc_example2/models.dart';
-import 'package:bloc_practice_course/bloc_example2/notes_api.dart';
+import 'package:bloc_practice_course/bloc_example2/api/notes_api.dart';
 import 'package:bloc_practice_course/bloc_example2/views/login_view.dart';
 import 'package:bloc_practice_course/cubit_example/cubit_example.dart';
 import 'package:flutter/material.dart';
@@ -28,14 +28,14 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomePage()
+      home: const BlocExample2()
     );
   }
 }
 
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class BlocExample2 extends StatelessWidget {
+  const BlocExample2({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +63,11 @@ class HomePage extends StatelessWidget {
           },
           builder: (context, appState){
             final notes = appState.notes;
-            if(notes == null){return LoginView(loginTapped: (email, password){},);}
+            if(notes == null){
+              return LoginView(loginTapped: (email, password){
+                context.read<AppBloc>().add(LoginAction(email: email, password: password));
+              });
+            }
             else{return notes.toListView();}
           }
         )

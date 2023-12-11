@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bloc_practice_course/bloc_example2/loading_screen_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';

@@ -1,4 +1,4 @@
-import 'package:bloc_practice_course/bloc_example2/generic_dialog.dart';
+import 'package:bloc_practice_course/bloc_example2/custom_widgets/generic_dialog.dart';
 import 'package:flutter/material.dart';
 
 typedef OnLoginTapped = void Function(String email, String password);
@@ -26,7 +26,7 @@ class LoginButton extends StatelessWidget{
           loginTapped(email, password);
         }
       }, 
-      child: const Text('login')
+      child: const Text('Login')
     );
   }
 }
