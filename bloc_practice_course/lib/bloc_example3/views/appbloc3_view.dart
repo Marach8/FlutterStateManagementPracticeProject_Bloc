@@ -21,11 +21,10 @@ class AppBloc3View<T extends AppBloc3> extends StatelessWidget{
       child: BlocBuilder<T, AppState3>(
         builder: (context, appState){
           if(appState.error != null){return const Center(child: Text('An Error Occured!'));}
-          else if(appState.data != null){return Container(color: Colors.red, child: Image.memory(appState.data!, fit: BoxFit.cover));}
+          else if(appState.data != null){return Image.memory(appState.data!, fit: BoxFit.cover);}
           else{return const Center(child: CircularProgressIndicator());}
         }
       ),
     );
   }
-
 }

@@ -24,10 +24,7 @@ class BlocExample3 extends StatelessWidget {
           ],
           child: const Column(
             mainAxisSize: MainAxisSize.max,
-            children: [
-              AppBloc3View<BlocOne>(),
-              AppBloc3View<BlocTwo>()
-            ]
+            children: [AppBloc3View<BlocOne>(), AppBloc3View<BlocTwo>()]
           )
         )
       )

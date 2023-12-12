@@ -6,13 +6,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 
 typedef RandomImageUrlPicker = String Function(Iterable<String> allUrls);
+typedef AppBlocUrlLoader = Future<Uint8List> Function(String url);
 
 class AppBloc3 extends Bloc<AppAction3, AppState3>{
 
   String _pickRandomUrl(Iterable<String> allUrls) => allUrls.getRandomElement();
+  Future<Uint8List> _loadUrl(String url) => NetworkAssetBundle(Uri.parse(url)).load(url)
+  .then((data) => data.buffer.asUint8List());
 
   AppBloc3({
-    RandomImageUrlPicker? urlPicker, required Iterable<String> urls, Duration? waitBeforeLoading
+    RandomImageUrlPicker? urlPicker, required Iterable<String> urls, 
+    Duration? waitBeforeLoading, AppBlocUrlLoader? urlLoader,
   }): super(const AppState3.empty()){
     on<LoadNextUrlAction> ((event, emit) async{
       //Start Loading
@@ -20,8 +24,7 @@ class AppBloc3 extends Bloc<AppAction3, AppState3>{
       final url = (urlPicker ?? _pickRandomUrl)(urls);
       try{
         if (waitBeforeLoading != null){Future.delayed(waitBeforeLoading);}
-        final bundle = NetworkAssetBundle(Uri.parse(url));
-        final data = (await bundle.load(url)).buffer.asUint8List();
+        final data = await (urlLoader ?? _loadUrl)(url);
         emit(AppState3(isLoading: false, data: data, error: null));
       } catch(e){
         emit(AppState3(isLoading: false, data: null, error: e));
@@ -29,6 +32,7 @@ class AppBloc3 extends Bloc<AppAction3, AppState3>{
     });
   }
 }
+
 
 
 
