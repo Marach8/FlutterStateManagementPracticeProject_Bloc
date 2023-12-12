@@ -1,4 +1,5 @@
 import 'package:bloc_practice_course/bloc_example2/views/main_view.dart';
+import 'package:bloc_practice_course/bloc_example3/views/main_view.dart';
 import 'package:flutter/material.dart';
 void main() => runApp(const MyApp());
 
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const BlocExample2()
+      home: const BlocExample3()
     );
   }
 }

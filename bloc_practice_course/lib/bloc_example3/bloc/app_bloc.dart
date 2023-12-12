@@ -1,15 +1,11 @@
-import 'dart:math' as math;
-import 'package:bloc_practice_course/bloc_example3/app_actions.dart';
-import 'package:bloc_practice_course/bloc_example3/app_state.dart';
+import 'package:bloc_practice_course/bloc_example3/bloc/app_actions.dart';
+import 'package:bloc_practice_course/bloc_example3/bloc/app_state.dart';
+import 'package:bloc_practice_course/bloc_example3/others/extension.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 
 typedef RandomImageUrlPicker = String Function(Iterable<String> allUrls);
-
-extension RandomElement<T> on Iterable<T> {
-  T getRandomElement() => elementAt(math.Random().nextInt(length));
-}
 
 class AppBloc3 extends Bloc<AppAction3, AppState3>{
 
@@ -32,4 +28,17 @@ class AppBloc3 extends Bloc<AppAction3, AppState3>{
       }
     });
   }
+}
+
+
+
+class BlocOne extends AppBloc3{
+  BlocOne({Duration? waitBeforeLoading, required Iterable<String> urls})
+    : super(urls: urls, waitBeforeLoading: waitBeforeLoading);
+}
+
+
+class BlocTwo extends AppBloc3{
+  BlocTwo({Duration? waitBeforeLoading, required Iterable<String> urls})
+    : super(urls: urls, waitBeforeLoading: waitBeforeLoading);
 }
