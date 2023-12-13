@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "995009007246",
+    "project_id": "image-picker-with-bloc",
+    "storage_bucket": "image-picker-with-bloc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:995009007246:android:9a36990450c8f43bf103df",
+        "android_client_info": {
+          "package_name": "com.example.bloc_practice_course"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxIB9Q2ve76Ey9ZfgzeSD9Ns4-ry61q_8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
