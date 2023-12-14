@@ -4,18 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 @immutable 
-abstract class AppState{
+abstract class AppState4{
   final bool isLoading; final AuthError? error;
 
-  const AppState({required this.isLoading, required this.error});
+  const AppState4({required this.isLoading, this.error});
 }
 
 
 @immutable 
-class AppStateLoggedIn extends AppState{
+class AppStateLoggedIn extends AppState4{
   final User user; final Iterable<Reference> images;
   const AppStateLoggedIn({
-    required bool isLoading, required AuthError? error,
+    required bool isLoading, AuthError? error,
     required this.images, required this.user
     }): super(isLoading: isLoading, error: error);
 
@@ -36,8 +36,8 @@ class AppStateLoggedIn extends AppState{
 
 
 @immutable 
-class AppStateLoggedOut extends AppState{
-  const AppStateLoggedOut({required bool isLoading, required AuthError? error})
+class AppStateLoggedOut extends AppState4{
+  const AppStateLoggedOut({required bool isLoading, AuthError? error})
   : super(isLoading: isLoading, error: error);
 
   @override 
@@ -46,7 +46,7 @@ class AppStateLoggedOut extends AppState{
 
 
 @immutable 
-class AppStateIsInRegistrationView extends AppState{
-  const AppStateIsInRegistrationView({required bool isLoading, required AuthError? error})
+class AppStateIsInRegistrationView extends AppState4{
+  const AppStateIsInRegistrationView({required bool isLoading, AuthError? error})
     : super(error: error, isLoading: isLoading);
 }
