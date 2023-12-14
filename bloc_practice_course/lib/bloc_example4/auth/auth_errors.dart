@@ -4,11 +4,12 @@ import 'package:flutter/material.dart' show immutable;
 final Map<String, AuthError> authErrors = {
   'user-not-found': const UserNotFoundAuthError(),
   'weak-password': const WeakPasswordAuthError(),
-  'invalid-email': const InvalidEmailAuthError(),
+  'invalid-credential': const InvalidEmailAuthError(),
   'operation-not-allowed': const OperationNotAllowedAuthError(),
   'email-already-in-use': const EmailAlreadyInUseAuthError(),
   'requires-recent-login': const RequiresRecentLoginAuthError(),
-  'no-current-user': const NoCurrentUserAuthError()
+  'no-current-user': const NoCurrentUserAuthError(),
+  'network-request-failed': const NetworkFailedError()
 };
 
 @immutable 
@@ -59,7 +60,7 @@ class WeakPasswordAuthError extends AuthError{
 @immutable 
 class InvalidEmailAuthError extends AuthError{
   const InvalidEmailAuthError(): 
-    super(title: 'Invalid Email!', content: 'The email entered is invalid. Please enter a valid one.');
+    super(title: 'User not Found!', content: 'This User was not found. Please enter a valid one.');
 }
 
 @immutable 
@@ -68,3 +69,8 @@ class EmailAlreadyInUseAuthError extends AuthError{
     super(title: 'Email Already In Use', content: 'This email is already registered. Please enter another.');
 }
 
+@immutable 
+class NetworkFailedError extends AuthError{
+  const NetworkFailedError()
+    :super(title: 'Network Request Failed', content: 'Please Check Your Network Connenction and Try Again.');
+}

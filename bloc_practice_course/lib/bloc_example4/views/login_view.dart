@@ -35,14 +35,12 @@ class LoginView extends HookWidget {
                 context.read<AppBloc4>().add(LoginUserAppEvent(
                   email: emailController.text, password: passwordController.text
                 ));
-                emailController.clear(); passwordController.clear();
               },
               child: const Text('Log In')
             ),
             TextButton(
               onPressed: (){
                 context.read<AppBloc4>().add(const GoToRegistrationViewAppEvent());
-                emailController.clear(); passwordController.clear();
               },
               child: const Text('Not Registered? Register here.')
             )

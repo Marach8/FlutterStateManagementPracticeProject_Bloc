@@ -22,9 +22,7 @@ class PhotoGalleryView extends HookWidget {
           IconButton(
             onPressed: () async{
               await picker.pickImage(source: ImageSource.gallery).then((image){
-                // image != null ? context.read<AppBloc4>().add(UploadImageAppEvent(filePath: image.path)): {};
-                if(image == null){return;}
-                else{context.read<AppBloc4>().add(UploadImageAppEvent(filePath: image.path));}
+                image != null ? context.read<AppBloc4>().add(UploadImageAppEvent(filePath: image.path)): {};
               });
             },
             icon: const Icon(Icons.upload)
@@ -33,8 +31,8 @@ class PhotoGalleryView extends HookWidget {
         ]
       ),
       body: GridView.count(
-        crossAxisCount: 2, padding: const EdgeInsets.all(10),
-        mainAxisSpacing: 10, crossAxisSpacing: 10,
+        crossAxisCount: 2, padding: const EdgeInsets.all(5),
+        mainAxisSpacing: 5, crossAxisSpacing: 5,
         children: images.map((img) => ImageView(image: img)).toList()
       )
     );
