@@ -1,6 +1,6 @@
 import 'package:bloc_practice_course/bloc_example4/bloc/app_bloc.dart';
 import 'package:bloc_practice_course/bloc_example4/bloc/app_events.dart';
-import 'package:bloc_practice_course/bloc_example4/extensions.dart';
+import 'package:bloc_practice_course/bloc_example4/extentions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -32,17 +32,17 @@ class LoginView extends HookWidget {
             ),
             TextButton(
               onPressed: (){
-                emailController.clear(); passwordController.clear();
                 context.read<AppBloc4>().add(LoginUserAppEvent(
                   email: emailController.text, password: passwordController.text
                 ));
+                emailController.clear(); passwordController.clear();
               },
               child: const Text('Log In')
             ),
             TextButton(
               onPressed: (){
-                emailController.clear(); passwordController.clear();
                 context.read<AppBloc4>().add(const GoToRegistrationViewAppEvent());
+                emailController.clear(); passwordController.clear();
               },
               child: const Text('Not Registered? Register here.')
             )
