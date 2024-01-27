@@ -16,15 +16,24 @@ class BlocExample3 extends StatelessWidget {
         child: MultiBlocProvider(
           providers: [
             BlocProvider<BlocOne>(
-              create: (_) => BlocOne(urls: images, waitBeforeLoading: const Duration(seconds:10))
+              create: (_) => BlocOne(
+                urls: images,
+                waitBeforeLoading: const Duration(seconds:10)
+              )
             ),
             BlocProvider<BlocTwo>(
-              create: (_) => BlocTwo(urls: images, waitBeforeLoading: const Duration(seconds:10))
+              create: (_) => BlocTwo(
+                urls: images, 
+                waitBeforeLoading: const Duration(seconds:10)
+              )
             )
           ],
           child: const Column(
             mainAxisSize: MainAxisSize.max,
-            children: [AppBloc3View<BlocOne>(), AppBloc3View<BlocTwo>()]
+            children: [
+              AppBloc3View<BlocOne>(), 
+              AppBloc3View<BlocTwo>()
+            ]
           )
         )
       )
