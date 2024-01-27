@@ -26,15 +26,14 @@ class AppBloc4 extends Bloc<AppEvent, AppState4>{
       if(user == null){emit (const AppStateLoggedOut(isLoading: false)); return;}
       emit (AppStateLoggedIn(isLoading: true, images: state.images ?? [], user: user));
       try{
-        // final folderContents = await FirebaseStorage.instance.ref(user.uid).listAll();
-        // for (final item in folderContents.items){await item.delete().catchError((_){});}
         await FirebaseStorage.instance.ref(user.uid).delete().catchError((_){});
         await user.delete();
         await FirebaseAuth.instance.signOut();
         emit (const AppStateLoggedOut(isLoading:false));
       } on FirebaseAuthException catch(e){
         emit (AppStateLoggedIn(
-          isLoading: false, images: state.images ?? [], user: user, error: AuthError.from(e)
+          isLoading: false, images: state.images ?? [], 
+          user: user, error: AuthError.from(e)
         ));
       } on FirebaseException{
         emit (const AppStateLoggedOut(isLoading:false));

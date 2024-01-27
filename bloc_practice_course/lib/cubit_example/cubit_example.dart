@@ -2,29 +2,38 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:bloc/bloc.dart';
 
-class Homepage extends StatefulWidget {
-  const Homepage({super.key});
+class Homepage1 extends StatefulWidget {
+  const Homepage1({super.key});
 
   @override
-  State<Homepage> createState() => _HomepageState();
+  State<Homepage1> createState() => _HomepageState();
 }
 
-class _HomepageState extends State<Homepage> {
+class _HomepageState extends State<Homepage1> {
   late final NamesCubit namesCubit;
 
   @override 
-  void initState(){super.initState; namesCubit = NamesCubit();}
+  void initState(){
+    super.initState; 
+    namesCubit = NamesCubit();
+  }
 
   @override 
-  void dispose(){namesCubit.close(); super.dispose();}
+  void dispose(){
+    namesCubit.close(); 
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Cubit Example'), centerTitle: true), 
+      appBar: AppBar(
+        title: const Text('Cubit Example'), 
+        centerTitle: true
+      ),
       body: StreamBuilder<String?> (
         stream: namesCubit.stream,
-        builder: (context, snapshot){
+        builder: (_, snapshot){
           final Widget button = TextButton(
             onPressed: () => namesCubit.newCubitState(),
             child: const Text('Pick a random name')
@@ -35,7 +44,12 @@ class _HomepageState extends State<Homepage> {
             case ConnectionState.waiting:
               return button;
             case ConnectionState.active:
-              return Column(children: [button, Text(snapshot.data ?? '')],);
+              return Column(
+                children: [
+                  button, 
+                  Text(snapshot.data ?? '')
+                ],
+              );
             case ConnectionState.done:
               return const SizedBox();
           }
@@ -46,9 +60,7 @@ class _HomepageState extends State<Homepage> {
 }
 
 
-
 const names = ['Emmanuel', 'David', 'Emeka', 'Daniel'];
-
 
 
 class NamesCubit extends Cubit<String?> {
