@@ -1,4 +1,4 @@
-// import 'package:bloc_practice_course/bloc_example4/views/main_view.dart';
+import 'package:bloc_practice_course/bloc_example4/views/main_view.dart';
 import 'package:bloc_practice_course/bloc_example1/homepage.dart';
 import 'package:bloc_practice_course/bloc_example2/views/main_view.dart';
 import 'package:bloc_practice_course/bloc_example3/views/main_view.dart';
@@ -15,19 +15,19 @@ void main() async{
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.black26
-        )
-      ),
-      home: const BlocExample3()
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       theme: ThemeData(
+//         appBarTheme: const AppBarTheme(
+//           backgroundColor: Colors.black26
+//         )
+//       ),
+//       home: const BlocExample3()
+//     );
+//   }
+// }

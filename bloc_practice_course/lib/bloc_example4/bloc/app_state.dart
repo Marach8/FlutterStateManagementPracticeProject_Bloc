@@ -5,48 +5,76 @@ import 'package:firebase_storage/firebase_storage.dart';
 
 @immutable 
 abstract class AppState4{
-  final bool isLoading; final AuthError? error;
+  final bool isLoading; 
+  final AuthError? error;
 
-  const AppState4({required this.isLoading, this.error});
+  const AppState4({
+    required this.isLoading, 
+    this.error
+  });
 }
 
 
 @immutable 
 class AppStateLoggedIn extends AppState4{
-  final User user; final Iterable<Reference> images;
+  final User user; 
+  final Iterable<Reference> images;
+
   const AppStateLoggedIn({
-    required bool isLoading, AuthError? error,
-    required this.images, required this.user
-    }): super(isLoading: isLoading, error: error);
+    required bool isLoading, 
+    AuthError? error,
+    required this.images, 
+    required this.user
+  }): super(
+    isLoading: isLoading, 
+    error: error
+  );
 
   @override 
   bool operator ==(other){
     if(other is AppStateLoggedIn){
-      return isLoading == other.isLoading && user.uid == other.user.uid && 
-      images.length == other.images.length;
-    } else {return false;}
+      return isLoading == other.isLoading 
+        && user.uid == other.user.uid && 
+        images.length == other.images.length;
+    }
+    else {
+      return false;
+    }
   }
 
   @override 
   int get hashCode => Object.hash(user.uid, images);
 
   @override 
-  String toString() => 'AppStateLoggedIn: Images.length = ${images.length}';
+  String toString() => 
+    'AppStateLoggedIn: Images.length = ${images.length}';
 }
 
 
 @immutable 
 class AppStateLoggedOut extends AppState4{
-  const AppStateLoggedOut({required bool isLoading, AuthError? error})
-  : super(isLoading: isLoading, error: error);
+  const AppStateLoggedOut({
+    required bool isLoading, 
+    AuthError? error
+  })
+  : super(
+    isLoading: isLoading, 
+    error: error
+  );
 
   @override 
-  String toString() => 'AppStateLoggedOut: isLoading = $isLoading, error = $error';
+  String toString() => 
+    'AppStateLoggedOut: isLoading = $isLoading, error = $error';
 }
 
 
 @immutable 
 class AppStateIsInRegistrationView extends AppState4{
-  const AppStateIsInRegistrationView({required bool isLoading, AuthError? error})
-    : super(error: error, isLoading: isLoading);
+  const AppStateIsInRegistrationView({
+    required bool isLoading, 
+    AuthError? error
+  }): super(
+    error: error, 
+    isLoading: isLoading
+  );
 }
