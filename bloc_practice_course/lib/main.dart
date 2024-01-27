@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.black26
         )
       ),
-      home: const BlocExample1()
+      home: const BlocExample2()
     );
   }
 }

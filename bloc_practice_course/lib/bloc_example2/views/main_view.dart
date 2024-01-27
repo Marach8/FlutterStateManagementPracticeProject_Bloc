@@ -16,6 +16,7 @@ class BlocExample2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loadingScreen = LoadingScreen();
     return BlocProvider(
       create: (_) => AppBloc(
         loginApi: LoginApi(), 
@@ -23,31 +24,54 @@ class BlocExample2 extends StatelessWidget {
         acceptableLoginHandle: const LoginHandle.marach()
       ),
       child: Scaffold(
-        appBar: AppBar(title: const Text('Bloc2 Example'), centerTitle: true),
+        appBar: AppBar(
+          title: const Text('Bloc2 Example'), 
+          centerTitle: true
+        ),
         body: BlocConsumer<AppBloc, AppState>(
           listener: (context, appState){
-            if (appState.isLoading){LoadingScreen().showOverlay(context: context, text: 'PleaseWait');}
-            else{LoadingScreen().hideOverlay();}
+            if (appState.isLoading){
+              loadingScreen.showOverlay(
+                context: context, text: 'PleaseWait'
+              );
+            }
+            else{
+              loadingScreen.hideOverlay();
+            }
             final loginError = appState.loginError;
             if(loginError != null){
               showGenericDialog(
-                context: context, title: 'LoginError', content: 'An Error Occured During Login', 
+                context: context, 
+                title: 'LoginError', 
+                content: 'An Error Occured During Login', 
                 optionsBuilder: () => {'ok': true}
               );
             }
             if(
-              appState.isLoading == false && appState.loginError == null
-              && appState.loginHandle == const LoginHandle.marach() && appState.notes == null
-            ){context.read<AppBloc>().add(const LoadNotesAction());}
+              appState.isLoading == false 
+              && appState.loginError == null
+              && appState.loginHandle == const LoginHandle.marach() 
+              && appState.notes == null
+            ){
+              context.read<AppBloc>().add(
+                const LoadNotesAction()
+              );
+            }
           },
           builder: (context, appState){
             final notes = appState.notes;
             if(notes == null){
-              return LoginView(loginTapped: (email, password){
-                context.read<AppBloc>().add(LoginAction(email: email, password: password));
-              });
+              return LoginView(
+                loginTapped: (email, password){
+                  context.read<AppBloc>().add(
+                    LoginAction(email: email, password: password)
+                  );
+                }
+              );
             }
-            else{return notes.toListView();}
+            else{
+              return notes.toListView();
+            }
           }
         )
       ),
