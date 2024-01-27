@@ -25,8 +25,8 @@ class BlocExample1 extends StatelessWidget {
                 TextButton(
                   onPressed: () => context1.read<PersonBloc>()
                   .add(
-                    const LoadingPersonsAction(
-                      url: person1Url, 
+                    LoadingPersonsAction(
+                      url: PersonsUrl.persons1.urlString, 
                       loader: getPersonsData
                     )
                   ),
@@ -35,8 +35,8 @@ class BlocExample1 extends StatelessWidget {
                 TextButton(
                   onPressed: () => context1.read<PersonBloc>()
                   .add(
-                    const LoadingPersonsAction(
-                      url: person2Url, 
+                    LoadingPersonsAction(
+                      url: PersonsUrl.persons2.urlString, 
                       loader: getPersonsData
                     )
                   ),
