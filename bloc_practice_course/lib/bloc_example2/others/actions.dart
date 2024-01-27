@@ -9,7 +9,10 @@ abstract class AppAction{
 class LoginAction implements AppAction{
   final String email, password;
 
-  const LoginAction({required this.email, required this.password});
+  const LoginAction({
+    required this.email,
+    required this.password
+  });
 }
 
 @immutable 

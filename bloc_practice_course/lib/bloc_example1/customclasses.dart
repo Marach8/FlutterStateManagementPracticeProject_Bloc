@@ -5,28 +5,42 @@ import 'package:flutter/material.dart';
 
 
 class PersonData{
-  final String name; final int age;
-  PersonData({required this.name, required this.age});
+  final String name; 
+  final int age;
+  PersonData({
+    required this.name, 
+    required this.age
+  });
 
   PersonData.fromJson(Map<String, dynamic> json): 
-    name = json['name'] as String, age = json['age'] as int;
+    name = json['name'] as String, 
+    age = json['age'] as int;
 }
 
 
 @immutable 
 class FetchedResults{
-  final Iterable<PersonData> persons; final bool isRetrievedFromCache;
-  const FetchedResults({required this.persons, required this.isRetrievedFromCache});
+  final Iterable<PersonData> persons; 
+  final bool isRetrievedFromCache;
+
+  const FetchedResults({
+    required this.persons, 
+    required this.isRetrievedFromCache
+  });
 
   @override 
-  toString() => "Fetched Results (isRetrived: $isRetrievedFromCache , persons: $persons)";
+  toString() => 
+  "Fetched Results (isRetrived: $isRetrievedFromCache , persons: $persons)";
 
   @override
   bool operator ==(covariant FetchedResults other) =>
-  persons.isEqualIgnoringOrder(other.persons) && isRetrievedFromCache == other.isRetrievedFromCache;
+    persons.isEqualIgnoringOrder(other.persons) 
+    && isRetrievedFromCache == other.isRetrievedFromCache;
   
   @override
-  int get hashCode => Object.hash(persons, isRetrievedFromCache);  
+  int get hashCode => Object.hash(
+    persons, isRetrievedFromCache
+  );  
 }
 
 
@@ -37,13 +51,19 @@ class PersonBloc extends Bloc<LoadingAction, FetchedResults?>{
       final url = event.url;
       if (_cache.containsKey(url)){
         final cachedPerson = _cache[url]!;
-        final result = FetchedResults(isRetrievedFromCache: true, persons: cachedPerson);
+        final result = FetchedResults(
+          isRetrievedFromCache: true, 
+          persons: cachedPerson
+        );
         emit(result);
       } else{ 
         final loader = event.loader;
         final persons = await loader(url);
         _cache[url] = persons;
-        final result = FetchedResults(isRetrievedFromCache: false, persons: persons);
+        final result = FetchedResults(
+          isRetrievedFromCache: false, 
+          persons: persons
+        );
         emit(result);
       }
     });
