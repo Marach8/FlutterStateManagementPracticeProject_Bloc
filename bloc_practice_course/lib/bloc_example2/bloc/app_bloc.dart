@@ -10,26 +10,64 @@ class AppBloc extends Bloc<AppAction, AppState> {
   final NotesApiProtocol notesApi;
   final LoginHandle acceptableLoginHandle;
 
-  AppBloc({required this.loginApi, required this.notesApi, required this.acceptableLoginHandle}): super(const AppState.empty()){
+  AppBloc({
+    required this.loginApi, 
+    required this.notesApi, 
+    required this.acceptableLoginHandle
+  }): super(const AppState.empty()){
     on<LoginAction>((event, emit) async{
-      emit(const AppState(isLoading: true, loginError: null, loginHandle: null, notes: null));
-      final loginHandle = await loginApi.login(email: event.email, password: event.password);
+      emit(
+        const AppState(
+          isLoading: true, 
+          loginError: null, 
+          loginHandle: null, 
+          notes: null
+        )
+      );
+      final loginHandle = await loginApi.login(
+        email: event.email, 
+        password: event.password
+      );
       emit(
         AppState(
-          isLoading: false, loginError: loginHandle == null? LoginErrors.invalidHandle: null, 
-          loginHandle: loginHandle, notes: null
+          isLoading: false, 
+          loginError: loginHandle == null
+            ? LoginErrors.invalidHandle : null, 
+          loginHandle: loginHandle, 
+          notes: null
         )
       );
     });
 
     on<LoadNotesAction>((event, emit) async{
       final handle = state.loginHandle;
-      emit(AppState(isLoading: true, loginError: null, loginHandle: handle, notes: null));
+      emit(
+        AppState(
+          isLoading: true, 
+          loginError: null, 
+          loginHandle: handle, 
+          notes: null
+        )
+      );
       if(handle != acceptableLoginHandle){
-        emit(AppState(isLoading: false, loginHandle: handle, notes: null, loginError: LoginErrors.invalidHandle));
+        emit(
+          AppState(
+            isLoading: false, 
+            loginHandle: handle, 
+            notes: null, 
+            loginError: LoginErrors.invalidHandle
+          )
+        );
       } else{
         final notes = await notesApi.getNotes(handle: handle!);
-        emit(AppState(isLoading: false, loginHandle: handle, notes: notes, loginError: null));
+        emit(
+          AppState(
+            isLoading: false, 
+            loginHandle: handle, 
+            notes: notes, 
+            loginError: null
+          )
+        );
       }
     });
   }

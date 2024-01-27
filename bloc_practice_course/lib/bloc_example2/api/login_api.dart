@@ -5,7 +5,10 @@ import 'package:flutter/material.dart';
 abstract class LoginApiProtocol{
   const LoginApiProtocol();
   
-  Future<LoginHandle?> login({required String email, required String password});
+  Future<LoginHandle?> login({
+    required String email, 
+    required String password
+  });
 }
 
 
@@ -16,8 +19,12 @@ class LoginApi implements LoginApiProtocol{
   factory LoginApi() => _shared;
 
   @override
-  Future<LoginHandle?> login({required String email, required String password})
-    => Future.delayed(const Duration(seconds: 2), 
-    () => email.trim() == 'emma@gmail.com' && password.trim() == 'emmanuel')
-    .then((isLoggedIn) => isLoggedIn? const LoginHandle.marach(): null);
+  Future<LoginHandle?> login({
+    required String email, 
+    required String password
+  }) => Future.delayed(
+      const Duration(seconds: 2), 
+      () => email.trim() == 'emma@gmail.com' && password.trim() == 'emmanuel'
+    )
+    .then((isLoggedIn) => isLoggedIn ? const LoginHandle.marach(): null);
 }

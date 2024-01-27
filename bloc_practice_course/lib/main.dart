@@ -1,5 +1,6 @@
 // import 'package:bloc_practice_course/bloc_example4/views/main_view.dart';
 import 'package:bloc_practice_course/bloc_example1/homepage.dart';
+import 'package:bloc_practice_course/bloc_example2/views/main_view.dart';
 import 'package:bloc_practice_course/cubit_example/cubit_example.dart';
 import 'package:bloc_practice_course/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
