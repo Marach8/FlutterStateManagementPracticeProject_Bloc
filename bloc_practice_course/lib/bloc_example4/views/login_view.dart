@@ -10,37 +10,56 @@ class LoginView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final emailController = useTextEditingController(text: 'emma@gmail.com'.ifDebugging);
-    final passwordController = useTextEditingController(text: 'emmanuel'.ifDebugging);
+    final emailController = useTextEditingController(
+      text: 'emma@gmail.com'.ifDebugging
+    );
+    final passwordController = useTextEditingController(
+      text: 'emmanuel'.ifDebugging
+    );
     return Scaffold(
-      appBar: AppBar(title: const Text('LogIn'), centerTitle: true),
+      appBar: AppBar(
+        title: const Text('LogIn'), 
+        centerTitle: true
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
             TextField(
               controller: emailController,
-              decoration: const InputDecoration(hintText: 'Enter your email'),
-              keyboardType: TextInputType.emailAddress, autocorrect: false,
+              decoration: const InputDecoration(
+                hintText: 'Enter your email'
+              ),
+              keyboardType: TextInputType.emailAddress, 
+              autocorrect: false,
               keyboardAppearance: Brightness.dark,
             ),
             TextField(
               controller: passwordController,
-              decoration: const InputDecoration(hintText: 'Enter your password'),
-              obscureText: true, obscuringCharacter: '+', autocorrect: false,
+              decoration: const InputDecoration(
+                hintText: 'Enter your password'
+              ),
+              obscureText: true, 
+              obscuringCharacter: '+', 
+              autocorrect: false,
               keyboardAppearance: Brightness.dark,
             ),
             TextButton(
               onPressed: (){
-                context.read<AppBloc4>().add(LoginUserAppEvent(
-                  email: emailController.text, password: passwordController.text
-                ));
+                context.read<AppBloc4>().add(
+                  LoginUserAppEvent(
+                    email: emailController.text,
+                    password: passwordController.text
+                  )
+                );
               },
               child: const Text('Log In')
             ),
             TextButton(
               onPressed: (){
-                context.read<AppBloc4>().add(const GoToRegistrationViewAppEvent());
+                context.read<AppBloc4>().add(
+                  const GoToRegistrationViewAppEvent()
+                );
               },
               child: const Text('Not Registered? Register here.')
             )

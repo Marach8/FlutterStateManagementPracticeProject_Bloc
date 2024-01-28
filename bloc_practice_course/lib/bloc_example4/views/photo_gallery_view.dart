@@ -13,16 +13,25 @@ class PhotoGalleryView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final picker = useMemoized(() => ImagePicker(), [key]);
-    final images = context.watch<AppBloc4>().state.images ?? [];
+    final picker = useMemoized(
+      () => ImagePicker(), 
+      [key]
+    );
+    final images = context.watch<AppBloc4>()
+      .state.images ?? [];
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Photo Manager'), centerTitle: true,
+        title: const Text('Photo Manager'),
+        centerTitle: true,
         actions: [
           IconButton(
             onPressed: () async{
-              await picker.pickImage(source: ImageSource.gallery).then((image){
-                image != null ? context.read<AppBloc4>().add(UploadImageAppEvent(filePath: image.path)): {};
+              await picker.pickImage(source: ImageSource.gallery)
+              .then((image){
+                image != null 
+                  ? context.read<AppBloc4>().add(
+                    UploadImageAppEvent(filePath: image.path)
+                  ) : {};
               });
             },
             icon: const Icon(Icons.upload)
@@ -31,9 +40,13 @@ class PhotoGalleryView extends HookWidget {
         ]
       ),
       body: GridView.count(
-        crossAxisCount: 2, padding: const EdgeInsets.all(5),
-        mainAxisSpacing: 5, crossAxisSpacing: 5,
-        children: images.map((img) => ImageView(image: img)).toList()
+        crossAxisCount: 2, 
+        padding: const EdgeInsets.all(5),
+        mainAxisSpacing: 5, 
+        crossAxisSpacing: 5,
+        children: images.map(
+          (img) => ImageView(image: img)
+        ).toList()
       )
     );
   }

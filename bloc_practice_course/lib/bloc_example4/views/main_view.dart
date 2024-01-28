@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
             }
           },
 
-          builder: (context, appState){
+          builder: (_, appState){
             if (appState is AppStateLoggedIn){
               return const PhotoGalleryView();
             }
@@ -58,7 +58,9 @@ class MyApp extends StatelessWidget {
             else if (appState is AppStateIsInRegistrationView){
               return const RegisterView();
             }
-            else{return Container();}
+            else{
+              return Container();
+            }
           }
         )
       ),

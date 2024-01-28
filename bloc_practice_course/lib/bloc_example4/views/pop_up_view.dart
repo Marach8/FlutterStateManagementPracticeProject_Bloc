@@ -14,21 +14,29 @@ class MenuPopUpButton extends StatelessWidget {
     return PopupMenuButton<MenuAction>(
       itemBuilder: (context) => [
         const PopupMenuItem<MenuAction>(
-          value: MenuAction.logout, child: Text('LogOut')
+          value: MenuAction.logout, 
+          child: Text('LogOut')
         ),
         const PopupMenuItem<MenuAction>(
-          value: MenuAction.deleteAccount, child: Text('Delete Account')
+          value: MenuAction.deleteAccount, 
+          child: Text('Delete Account')
         )
       ],
       onSelected: (value) async{
         switch(value){
           case MenuAction.logout: 
             await logOutDialog(context: context)
-            .then((result){result == true ? context.read<AppBloc4>().add(const LogoutUserAppEvent()):{};});
+            .then((result){
+              result == true ? context.read<AppBloc4>()
+                .add(const LogoutUserAppEvent()) : {};
+            });
             break;           
           case MenuAction.deleteAccount:
             await deletAccountDialog(context: context)
-            .then((result){result == true ? context.read<AppBloc4>().add(const DeleteAccountAppEvent()):{};});  
+            .then((result){
+              result == true ? context.read<AppBloc4>()
+              .add(const DeleteAccountAppEvent()) : {};
+            });  
             break;
         }
       }
