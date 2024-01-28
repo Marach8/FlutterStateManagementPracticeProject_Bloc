@@ -17,81 +17,172 @@ class AppBloc4 extends Bloc<AppEvent, AppState4>{
       if(user == null){
         emit (
           const AppStateLoggedOut(isLoading: false)
-        )
-        ; return;
+        );
+        return;
       }
-      emit (AppStateLoggedIn(isLoading: true, images: state.images ?? [], user: user));
+
+      emit (
+        AppStateLoggedIn(
+          isLoading: true, 
+          images: state.images ?? [], 
+          user: user
+        )
+      );
+
       final file = File(event.filePath);
-      await uploadImage(file: file, userId: user.uid);
+      await uploadImage(
+        file: file, 
+        userId: user.uid
+      );
       final retrievedImages = await getImages(user.uid);
-      emit (AppStateLoggedIn(images: retrievedImages, isLoading: false,user: user));
+
+      emit (
+        AppStateLoggedIn(
+          images: retrievedImages, 
+          isLoading: false,
+          user: user,
+        )
+      );
     });
 
     on<DeleteAccountAppEvent> ((event, emit) async{
       final user = FirebaseAuth.instance.currentUser;
-      if(user == null){emit (const AppStateLoggedOut(isLoading: false)); return;}
-      emit (AppStateLoggedIn(isLoading: true, images: state.images ?? [], user: user));
+      if(user == null){
+        emit (
+          const AppStateLoggedOut(isLoading: false)
+        ); 
+        return;
+      }
+
+      emit (
+        AppStateLoggedIn(
+          isLoading: true, 
+          images: state.images ?? [], 
+          user: user
+        )
+      );
       try{
-        await FirebaseStorage.instance.ref(user.uid).delete().catchError((_){});
+        await FirebaseStorage.instance
+          .ref(user.uid)
+          .delete()
+          .catchError((_){});
         await user.delete();
         await FirebaseAuth.instance.signOut();
-        emit (const AppStateLoggedOut(isLoading:false));
+        emit (
+          const AppStateLoggedOut(isLoading: false)
+        );
       } on FirebaseAuthException catch(e){
-        emit (AppStateLoggedIn(
-          isLoading: false, images: state.images ?? [], 
-          user: user, error: AuthError.from(e)
-        ));
+        emit (
+          AppStateLoggedIn(
+            isLoading: false, 
+            images: state.images ?? [], 
+            user: user, 
+            error: AuthError.from(e)
+          )
+        );
       } on FirebaseException{
-        emit (const AppStateLoggedOut(isLoading:false));
+        emit (
+          const AppStateLoggedOut(isLoading:false)
+        );
       }
     });
 
     on<LogoutUserAppEvent> ((event, emit) async{
-      emit (const AppStateLoggedOut(isLoading: true));
+      emit (
+        const AppStateLoggedOut(isLoading: true)
+      );
       await FirebaseAuth.instance.signOut();
-      emit (const AppStateLoggedOut(isLoading:false));
+      emit (
+        const AppStateLoggedOut(isLoading:false)
+      );
     });
 
     on<InitializationAppEvent>((event, emit) async{
       final user = FirebaseAuth.instance.currentUser;
-      if(user == null){emit (const AppStateLoggedOut(isLoading: false)); return;}
+      if(user == null){
+        emit (
+          const AppStateLoggedOut(isLoading: false)
+        ); 
+        return;
+      }
       final userImages = await getImages(user.uid);
-      emit(AppStateLoggedIn(images: userImages, isLoading: false, user: user));
+      emit(
+        AppStateLoggedIn(
+          images: userImages, 
+          isLoading: false, 
+          user: user
+        )
+      );
     });
 
     on<RegisterUserAppEvent> ((event, emit) async{
-      emit(const AppStateIsInRegistrationView(isLoading: true));
+      emit(
+        const AppStateIsInRegistrationView(isLoading: true)
+      );
       if (event.email.isNotEmpty && event.password.isNotEmpty){
         try{
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
-            email: event.email, password: event.password
+          await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+            email: event.email,
+            password: event.password
           );
-          emit(const AppStateLoggedOut(isLoading: false));
+          emit(
+            const AppStateLoggedOut(isLoading: false)
+          );
         } on FirebaseAuthException catch(e){
-          emit(AppStateIsInRegistrationView(isLoading: false, error: AuthError.from(e)));
+          emit(
+            AppStateIsInRegistrationView(
+              isLoading: false, 
+              error: AuthError.from(e)
+            )
+          );
         }
       }
     });
 
     on<LoginUserAppEvent> ((event, emit) async{
-      emit(const AppStateLoggedOut(isLoading: true));
+      emit(
+        const AppStateLoggedOut(isLoading: true)
+      );
       try{
-        final userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: event.email, password: event.password
+        final userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+            email: event.email, 
+            password: event.password
+          );
+        final userImages = await getImages(
+          userCredential.user!.uid
         );
-        final userImages = await getImages(userCredential.user!.uid);
-        emit(AppStateLoggedIn(isLoading: false, images: userImages, user: userCredential.user!));
+
+        emit(
+          AppStateLoggedIn(
+            isLoading: false, 
+            images: userImages, 
+            user: userCredential.user!
+          )
+        );
       } on FirebaseAuthException catch (e){
-        emit(AppStateLoggedOut(isLoading: false, error: AuthError.from(e)));
+        emit(
+          AppStateLoggedOut(
+            isLoading: false, 
+            error: AuthError.from(e)
+          )
+        );
       }
     });
 
     on<GoToLoginViewAppEvent>((event, emit){
-      emit(const AppStateLoggedOut(isLoading: false));
+      emit(
+        const AppStateLoggedOut(isLoading: false)
+      );
     });
 
     on<GoToRegistrationViewAppEvent> ((event, emit){
-      emit (const AppStateIsInRegistrationView(isLoading: false));
+      emit (
+        const AppStateIsInRegistrationView(
+          isLoading: false
+        )
+      );
     });
   }
 }

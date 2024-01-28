@@ -18,7 +18,10 @@ Future<bool?> logOutDialog({required BuildContext context})
   ).then((value) => value ?? false);
 
 
-Future<void> authErrorDialog({required BuildContext context, required AuthError error}) 
+Future<void> authErrorDialog({
+  required BuildContext context, 
+  required AuthError error
+}) 
   => showGenericDialog<void>(
     context: context, title: error.title,
     content: error.content,

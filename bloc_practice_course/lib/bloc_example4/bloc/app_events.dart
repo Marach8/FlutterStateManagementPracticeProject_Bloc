@@ -53,6 +53,7 @@ class GoToLoginViewAppEvent implements AppEvent{
 @immutable 
 class RegisterUserAppEvent implements AppEvent{
   final String email, password;
+  
   const RegisterUserAppEvent({
     required this.email, 
     required this.password

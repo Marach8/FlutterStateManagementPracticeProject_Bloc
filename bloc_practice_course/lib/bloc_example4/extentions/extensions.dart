@@ -6,15 +6,28 @@ import 'package:flutter/foundation.dart';
 extension GetUser on AppState4{
   User? get user {
     final cls = this;
-    if (cls is AppStateLoggedIn){return cls.user;} else {return null;}
+    if (cls is AppStateLoggedIn){
+      return cls.user;
+    } 
+    else {
+      return null;
+    }
   }
 }
 
 extension GetImages on AppState4{
   Iterable<Reference>? get images {
     final cls = this;
-    if (cls is AppStateLoggedIn){return cls.images;} else {return null;}
+    if (cls is AppStateLoggedIn){
+      return cls.images;
+    } 
+    else {
+      return null;
+    }
   }
 }
 
-extension IfDebugging on String{String? get ifDebugging => kDebugMode ? this : null;}
+extension IfDebugging on String{
+  String? get ifDebugging 
+    => kDebugMode ? this : null;
+}
